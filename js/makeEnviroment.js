@@ -9,6 +9,7 @@
   groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
   ground.position.y = 0;
   ground.material = groundMaterial;
+  ground.checkCollisions = true;
 
   // Skybox
   var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
