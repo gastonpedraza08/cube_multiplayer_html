@@ -172,6 +172,21 @@ socket.on('move-player', data => {
   tank.checkCollisions = true;
 
 
+
+  BABYLON.SceneLoader.ImportMesh("", "./scenes/", "full2.glb", scene, function (newMeshes,  particleSystems, skeletons) {
+    var skeleton = skeletons[0];
+    
+    var agMap = {};
+    var allAGs = scene.animationGroups;
+    for (i = 0; i < allAGs.length; i++) {
+      agMap[allAGs[i].name] = allAGs[i];
+    }
+    allAGs[0].stop();
+    allAGs[1].stop();
+    allAGs[2].stop();
+});
+
+
   //create walls
   var wall = [];
   let GreenColor = new BABYLON.Color4(0, 255, 0, 0.5);
