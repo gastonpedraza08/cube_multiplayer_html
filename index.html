@@ -72,10 +72,10 @@
 
         let { meshes: newMeshes, animationGroups } = await BABYLON.SceneLoader.ImportMeshAsync("", "./scenes/", "b.glb", scene);
 
-        console.log(animationGroups)
-        scene.animationGroups[1].play(true)
         personaje = newMeshes[1];
         personaje.name = id;
+        personaje.animationGroups = animationGroups;
+        personaje.animationGroups[1].play(true)
         personaje.position.y = 1
         personaje.speed = 0.2;
         personaje.frontVector = new BABYLON.Vector3(1, 0, 0);
@@ -99,21 +99,21 @@
 
         window.addEventListener('keyup', function (e) {
           if (e.key === 'w' || e.key === 'ArrowUp') {
-            scene.animationGroups[3].stop()
+            personaje.animationGroups[3].stop()
           } else if (e.key === 's' || e.key === 'ArrowDown') {
-            scene.animationGroups[0].stop()
+            personaje.animationGroups[0].stop()
           }
         })
 
         scene.onBeforeRenderObservable.add(() => {
           if (personaje) {
             if (inputMap["w"] || inputMap["ArrowDown"]) {
-              scene.animationGroups[3].start()
+              personaje.animationGroups[3].start()
               personaje.moveWithCollisions(personaje.frontVector.multiplyByFloats(personaje.speed, personaje.speed, personaje.speed));
               socket.emit('move', { key: "w", id: id, position: personaje.position, rotation: personaje.rotation})
             }
             if (inputMap["s"] || inputMap["ArrowUp"]) {
-              scene.animationGroups[0].start()
+              personaje.animationGroups[0].start()
               personaje.moveWithCollisions(personaje.frontVector.multiplyByFloats(-personaje.speed / 2, -personaje.speed / 2, -personaje.speed / 2));
               socket.emit('move', { key: "s", id: id, position: personaje.position, rotation: personaje.rotation})
             }

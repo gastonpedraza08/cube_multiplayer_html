@@ -23,12 +23,10 @@ const id = uuid.v4();
             y: cube.rotation._y,
             z: cube.rotation._z,
           }
-          console.log(mesh)
           if (cube.key === "w") {
-            sceneP.animationGroups[3 + 4].start()
+            mesh.animationGroups[3].start()
           } else if (cube.key === "s") {
-            console.log(sceneP.animationGroups)
-            sceneP.animationGroups[0 + 4].start()
+            mesh.animationGroups[0].start()
           }
           return;
         }
@@ -40,16 +38,17 @@ const id = uuid.v4();
         if (c.id !== id ) {
           let personaje;
           let { meshes: newMeshes, animationGroups } = await BABYLON.SceneLoader.ImportMeshAsync(null, "./scenes/", "b.glb", scene);
-          animationGroups[1].play(true)
           personaje = newMeshes[1];
+          personaje.animationGroups = animationGroups;
+          personaje.animationGroups[1].play(true)
           personaje.name = c.id;
           personaje.speed = 0.2;
           personaje.frontVector = new BABYLON.Vector3(1, 0, 0);
           personaje.checkCollisions = true;
           personaje.rotationQuaternion = undefined;
 
-          personaje.position.y = 1;
-          personaje.position.x = 12;
+          personaje.position.y = c.position.y;
+          personaje.position.x = c.position.x;
           personaje.position.z = c.position.z;
 
           personaje.rotation.y = c.rotation.y;
