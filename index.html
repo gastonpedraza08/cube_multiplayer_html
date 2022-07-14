@@ -6,25 +6,15 @@
     <title>Babylon.js sample code</title>
 
     <!-- Babylon.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
-    <script src="https://assets.babylonjs.com/generated/Assets.js"></script>
-    <script src="https://preview.babylonjs.com/ammo.js"></script>
-    <script src="https://preview.babylonjs.com/cannon.js"></script>
-    <script src="https://preview.babylonjs.com/Oimo.js"></script>
-    <script src="https://preview.babylonjs.com/earcut.min.js"></script>
     <script src="https://preview.babylonjs.com/babylon.js"></script>
-    <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
-    <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
-    <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
     <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-    <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
-    <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
-    <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.min.js"></script>
     <script src="js/makeEnviroment.js"></script>
     <script src="js/socket.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/controls.js"></script>
     <style>
       html, body {
           overflow: hidden;
@@ -45,7 +35,7 @@
   <canvas id="renderCanvas"></canvas>
 
   <script>
-    var scene; 
+    var scene, collider; 
 
     window.addEventListener('DOMContentLoaded', async function () {
       // get the canvas DOM element
@@ -57,86 +47,15 @@
       // createScene function that creates and return the scene
       var createScene = async () => {
         scene = new BABYLON.Scene(engine);
-        socket.on('move-player', data => {
-          loadCube(scene, data)
-        })
-
-        socket.on('remove-cube', id => {
-          let c = scene.getMeshByName(id);
-          c.dispose();
-        })
 
         var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
 
-        var personaje;
-
-        let { meshes: newMeshes, animationGroups } = await BABYLON.SceneLoader.ImportMeshAsync("", "./scenes/", "b.glb", scene);
-
-        personaje = BABYLON.MeshBuilder.CreateCapsule("collider", { height: 4, radius: 1.5}, scene);
-        personaje.name = id;
-        personaje.animationGroups = animationGroups;
-        personaje.animationGroups[0].start();
-        personaje.animationGroups[0].stop();
-        personaje.animationGroups[1].play(true);
-        personaje.position.y = 0.75;
-        personaje.speed = 0.2;
-        personaje.frontVector = new BABYLON.Vector3(Math.sin(personaje.rotation.y), 0, Math.cos(personaje.rotation.y));
-        personaje.checkCollisions = true;
-        personaje.rotationQuaternion = undefined;
-        personaje.isVisible = false;
+        await loadPlayer();
         makeEnviroment();
+        listenSockets();
+        createFollowCamera(scene, canvas, collider)
+        createControls(scene);
 
-        var playerCollider = newMeshes[1];
-        playerCollider.setParent(personaje);
-        playerCollider.position = new BABYLON.Vector3(0,0,0);
-
-        createFollowCamera(scene, canvas, personaje);
-
-        //set up input map
-        var inputMap = {};
-        scene.actionManager = new BABYLON.ActionManager(scene);
-        scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function(evt) {
-          inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
-
-        }));
-        scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function(evt) {
-          inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
-
-        }));
-
-        window.addEventListener('keyup', function (e) {
-          if (e.key === 'w' || e.key === 'ArrowUp') {
-            personaje.animationGroups[3].stop()
-          } else if (e.key === 's' || e.key === 'ArrowDown') {
-            personaje.animationGroups[0].stop()
-          }
-        })
-
-        scene.onBeforeRenderObservable.add(() => {
-          if (personaje) {
-            if (inputMap["w"] || inputMap["ArrowDown"]) {
-              personaje.animationGroups[3].start()
-              personaje.moveWithCollisions(personaje.frontVector.multiplyByFloats(personaje.speed, personaje.speed, personaje.speed));
-              socket.emit('move', { key: "w", id: id, position: personaje.position, rotation: personaje.rotation})
-            }
-            if (inputMap["s"] || inputMap["ArrowUp"]) {
-              personaje.animationGroups[0].start()
-              personaje.moveWithCollisions(personaje.frontVector.multiplyByFloats(-personaje.speed / 2, -personaje.speed / 2, -personaje.speed / 2));
-              socket.emit('move', { key: "s", id: id, position: personaje.position, rotation: personaje.rotation})
-            }
-            if (inputMap["a"] || inputMap["ArrowLeft"]) {
-              personaje.rotation.y -= .05;
-              personaje.frontVector = new BABYLON.Vector3(Math.sin(personaje.rotation.y), 0, Math.cos(personaje.rotation.y));
-              socket.emit('move', { id: id, position: personaje.position, rotation: personaje.rotation})
-            }
-            if (inputMap["d"] || inputMap["ArrowRight"]) {
-              personaje.rotation.y += .05;
-              
-              personaje.frontVector = new BABYLON.Vector3(Math.sin(personaje.rotation.y), 0, Math.cos(personaje.rotation.y));
-              socket.emit('move', { id: id, position: personaje.position, rotation: personaje.rotation})
-            }
-          }
-        })
         return scene;
       };
 
