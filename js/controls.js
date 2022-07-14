@@ -13,7 +13,7 @@ function createControls(scene) {
 
     window.addEventListener('keyup', function (e) {
       if (e.key === 'w' || e.key === 'ArrowUp') {
-        collider.animationGroups[3].stop()
+        collider.animationGroups[2].stop()
       } else if (e.key === 's' || e.key === 'ArrowDown') {
         collider.animationGroups[0].stop()
       }
@@ -22,7 +22,7 @@ function createControls(scene) {
     scene.onBeforeRenderObservable.add(() => {
       if (collider) {
         if (inputMap["w"] || inputMap["ArrowDown"]) {
-          collider.animationGroups[3].start()
+          collider.animationGroups[2].start()
           collider.moveWithCollisions(collider.frontVector.multiplyByFloats(collider.speed, collider.speed, collider.speed));
           socket.emit('move', { key: "w", id: id, position: collider.position, rotation: collider.rotation})
         }

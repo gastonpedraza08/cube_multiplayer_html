@@ -9,12 +9,13 @@
     <script src="https://preview.babylonjs.com/babylon.js"></script>
     <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.min.js"></script>
     <script src="js/makeEnviroment.js"></script>
     <script src="js/socket.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/player.js"></script>
     <script src="js/controls.js"></script>
+    <script src="js/loadFiles.js"></script>
     <style>
       html, body {
           overflow: hidden;
@@ -35,7 +36,8 @@
   <canvas id="renderCanvas"></canvas>
 
   <script>
-    var scene, collider; 
+    var scene, collider;
+    var characters = {}; 
 
     window.addEventListener('DOMContentLoaded', async function () {
       // get the canvas DOM element
@@ -50,9 +52,10 @@
 
         var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
 
-        await loadPlayer();
+        await loadAllCharacters();
+        await loadPlayer(scene);
         makeEnviroment();
-        listenSockets();
+        listenSockets(scene);
         createFollowCamera(scene, canvas, collider)
         createControls(scene);
 

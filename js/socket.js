@@ -1,18 +1,20 @@
 const id = uuid.v4();
-let socket = io.connect( "ws://localhost:5000", { query:`id=${id}`,transports: ['websocket'] } );
+let socket;
 
-function listenSockets() {
+function listenSockets(scene) {
+  socket = io.connect( "ws://localhost:5000", { query:`id=${id}`,transports: ['websocket'] } );
+
   socket.on('connect', () => {
     localStorage.setItem('id', id);
-    socket.emit('add-cube', { id: id, position: { x: 0, y: 0.75, z: 0} });
   });
 
   socket.on('get-cubes', data => {
-    loadCubes(data)
+    console.log(data)
+    loadCubes(data);
   })
 
   socket.on('move-player', data => {
-    loadCube(scene, data)
+    loadCube(scene, data);
   })
 
   socket.on('remove-cube', id => {
@@ -22,10 +24,10 @@ function listenSockets() {
 }
     
 
-function loadCube(sceneP, cube) {
+function loadCube(scene, cube) {
   if (cube.id === id) return null;
 
-  sceneP.meshes.forEach(mesh => {
+  scene.meshes.forEach(mesh => {
     if (cube.id === mesh.name) {
       mesh.position = cube.position;
       mesh.rotation = {
@@ -34,9 +36,9 @@ function loadCube(sceneP, cube) {
         z: cube.rotation._z,
       }
       if (cube.key === "w") {
-        mesh.animationGroups[3].start();
+        mesh.animationGroups[2].start();
       } else if (cube.key === "s") {
-        //mesh.animationGroups[0].start();
+        mesh.animationGroups[0].start();
       }
       return;
     }
@@ -47,7 +49,7 @@ function loadCubes(cubes) {
     cubes.forEach(async c => {
     if (c.id !== id ) {
       let personaje;
-      let { meshes: newMeshes, animationGroups } = await BABYLON.SceneLoader.ImportMeshAsync(null, "./scenes/", "b.glb", scene);
+      let { meshes: newMeshes, animationGroups } = await BABYLON.SceneLoader.ImportMeshAsync(null, "./glb files/", "1.glb", scene);
       
       personaje = BABYLON.MeshBuilder.CreateCapsule("collider", { height: 4, radius: 1.5}, scene);
       personaje.name = c.id;
@@ -62,7 +64,6 @@ function loadCubes(cubes) {
 
       var playerCollider = newMeshes[1];
       playerCollider.setParent(personaje);
-      playerCollider.position = new BABYLON.Vector3(0,0,0);
 
       personaje.position.y = c.position.y;
       personaje.position.x = c.position.x;
