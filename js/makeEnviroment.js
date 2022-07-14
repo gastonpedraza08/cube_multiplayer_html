@@ -89,49 +89,4 @@
   wall[3].position.z = -25;
   wall[3].position.y = 3;
   wall[3].checkCollisions = true;
-
-  //wall middle left 
-  wall[4] = new BABYLON.MeshBuilder.CreateBox("wall middle left",
-    {
-      width: 20, 
-      faceColors: arrRedColor, 
-      height: 6, 
-      depth: 0.6,
-    },
-    scene);
-  wall[4].position.x = 0;
-  wall[4].position.z = -15;
-  wall[4].position.y = 3;
-  wall[4].rotation.y = 300.01;
-  wall[4].checkCollisions = true;
-
-  //wall middle right
-  wall[5] = new BABYLON.MeshBuilder.CreateBox("wall middle right",
-    {
-      width: 20, 
-      faceColors: arrRedColor, 
-      height: 6, 
-      depth: 0.6,
-    },
-    scene);
-  wall[5].position.x = 0;
-  wall[5].position.z = 15;
-  wall[5].position.y = 3;
-  wall[5].rotation.y = 300.01;
-  wall[5].checkCollisions = true;
-
-  //wall middle center
-  wall[6] = new BABYLON.MeshBuilder.CreateBox("wall middle center",
-    {
-      width: 10, 
-      faceColors: arrRedColor, 
-      height: 3, 
-      depth: 0.6,
-    },
-    scene);
-  wall[6].position.x = 0;
-  wall[6].position.z = 0;
-  wall[6].position.y = 7;
-  wall[6].rotation.y = 300.01;
-  wall[6].checkCollisions = true;
 }

@@ -75,10 +75,12 @@
         personaje = BABYLON.MeshBuilder.CreateCapsule("collider", { height: 4, radius: 1.5}, scene);
         personaje.name = id;
         personaje.animationGroups = animationGroups;
+        personaje.animationGroups[0].start();
+        personaje.animationGroups[0].stop();
         personaje.animationGroups[1].play(true);
         personaje.position.y = 0.75;
         personaje.speed = 0.2;
-        personaje.frontVector = new BABYLON.Vector3(1, 0, 0);
+        personaje.frontVector = new BABYLON.Vector3(Math.sin(personaje.rotation.y), 0, Math.cos(personaje.rotation.y));
         personaje.checkCollisions = true;
         personaje.rotationQuaternion = undefined;
         personaje.isVisible = false;
@@ -106,7 +108,7 @@
           if (e.key === 'w' || e.key === 'ArrowUp') {
             personaje.animationGroups[3].stop()
           } else if (e.key === 's' || e.key === 'ArrowDown') {
-            //personaje.animationGroups[0].stop()
+            personaje.animationGroups[0].stop()
           }
         })
 
@@ -118,9 +120,9 @@
               socket.emit('move', { key: "w", id: id, position: personaje.position, rotation: personaje.rotation})
             }
             if (inputMap["s"] || inputMap["ArrowUp"]) {
-              //personaje.animationGroups[0].start()
-              //personaje.moveWithCollisions(personaje.frontVector.multiplyByFloats(-personaje.speed / 2, -personaje.speed / 2, -personaje.speed / 2));
-              //socket.emit('move', { key: "s", id: id, position: personaje.position, rotation: personaje.rotation})
+              personaje.animationGroups[0].start()
+              personaje.moveWithCollisions(personaje.frontVector.multiplyByFloats(-personaje.speed / 2, -personaje.speed / 2, -personaje.speed / 2));
+              socket.emit('move', { key: "s", id: id, position: personaje.position, rotation: personaje.rotation})
             }
             if (inputMap["a"] || inputMap["ArrowLeft"]) {
               personaje.rotation.y -= .05;
