@@ -23,17 +23,32 @@
           height: 100%;
           margin: 0;
           padding: 0;
+          position: relative;
       }
 
       #renderCanvas {
+          position: absolute;
           width: 100%;
           height: 100%;
           touch-action: none;
+          visibility: hidden;
+      }
+      
+      #loading-section {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     </style>
   </head>
 <body>
   <canvas id="renderCanvas"></canvas>
+  <div id="loading-section">
+    <h1>Loading game...</h1>
+  </div>
 
   <script>
     var scene, collider;
@@ -52,7 +67,7 @@
 
         var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
 
-        await loadAllCharacters();
+        //await loadAllCharacters();
         await loadPlayer(scene);
         makeEnviroment();
         listenSockets(scene);
@@ -65,6 +80,14 @@
       // call the createScene function
       var scene = await createScene();
       createPointerLock(scene);
+
+      window.addEventListener("load", function(){
+        let loadingContainer = document.querySelector('#loading-section');
+        loadingContainer.style.display = "none";
+
+        canvas.style.visibility = "initial";
+      });
+
       // run the render loop
       engine.runRenderLoop(function() {
         scene.render();
