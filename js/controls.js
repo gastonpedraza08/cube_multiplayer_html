@@ -23,8 +23,18 @@ function createControls(scene) {
         if (inputMap["w"] || inputMap["ArrowUp"]) {
           collider.animationGroups[2].start()
           collider.moveWithCollisions(collider.frontVector.multiplyByFloats(collider.speed, collider.speed, collider.speed));
-          socket.emit('move', { key: "w", id: id, position: collider.position, rotation: collider.rotation})
+          socket.emit('move', 
+            { key: "w", 
+            id: id, 
+            position: {
+              x: collider.position.x,
+              y: 0.75,
+              z: collider.position.z,
+            }, 
+            rotation: collider.rotation
+          })
         }
+
         if (inputMap["s"] || inputMap["ArrowDown"]) {
           //collider.animationGroups[0].start()
           //collider.moveWithCollisions(collider.frontVector.multiplyByFloats(-collider.speed / 2, -collider.speed / 2, -collider.speed / 2));
