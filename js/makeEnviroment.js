@@ -73,41 +73,79 @@
   wall[3].checkCollisions = true;
 
   /* Decoration */
-  let { meshes: lounge_sofa_mesh } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "lounge_sofa.glb", scene);
+  // lounge sofa 1
+  let { meshes: lounge_sofa_mesh1 } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "lounge_sofa.glb", scene);
 
-  let clone_lounge_sofa = lounge_sofa_mesh[0].clone();
+  let collider_lounge_sofa_1 = BABYLON.MeshBuilder.CreateBox("collider_lounge_sofa_1", { height: 3, width: 6, depth: 2.5 }, scene);
+  collider_lounge_sofa_1.position.y = 0.75;
+  collider_lounge_sofa_1.position.x = 12;
+  collider_lounge_sofa_1.position.z = -42;
 
-  lounge_sofa_mesh[0].position = new BABYLON.Vector3(13.2, 0, -47);
-  lounge_sofa_mesh[0].scaling = new BABYLON.Vector3(7,7,7);
-  lounge_sofa_mesh[0].frontVector = new BABYLON.Vector3(0,0,0);
-  lounge_sofa_mesh[0].checkCollisions = true;
-  lounge_sofa_mesh[0].rotationQuaternion = undefined;
-  lounge_sofa_mesh[0].rotation.y = 0
+  collider_lounge_sofa_1.speed = 0.2;
+  collider_lounge_sofa_1.frontVector = new BABYLON.Vector3(Math.sin(collider_lounge_sofa_1.rotation.y), 0, Math.cos(collider_lounge_sofa_1.rotation.y));
+  collider_lounge_sofa_1.checkCollisions = true;
+  collider_lounge_sofa_1.isVisible = false;
 
-  clone_lounge_sofa.position = new BABYLON.Vector3(20, 0 , -40)
-  clone_lounge_sofa.scaling = new BABYLON.Vector3(7,7,7);
-  clone_lounge_sofa.frontVector = new BABYLON.Vector3(0,0,0);
-  clone_lounge_sofa.checkCollisions = true;
-  clone_lounge_sofa.rotationQuaternion = undefined;
-  clone_lounge_sofa.rotation.y = Math.PI;
+  var body_lounge_sofa_1 = lounge_sofa_mesh1[1];
+  body_lounge_sofa_1.setParent(collider_lounge_sofa_1);
+  body_lounge_sofa_1.scaling = new BABYLON.Vector3(6,6,6);
+  body_lounge_sofa_1.position = new BABYLON.Vector3(-3, 0, 1.25);
+  body_lounge_sofa_1.rotation = new BABYLON.Vector3(0, 0, 0);
 
+  // lounge sofa 2
+  let collider_lounge_sofa_2 = BABYLON.MeshBuilder.CreateBox("collider_lounge_sofa_2", { height: 3, width: 6, depth: 2.5 }, scene);
+  collider_lounge_sofa_2.position.y = 0.75;
+  collider_lounge_sofa_2.position.x = 12;
+  collider_lounge_sofa_2.position.z = -30;
 
-  let { meshes: lounge_chair_mesh } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "lounge_chair.glb", scene);
-  let clone_lounge_chair = lounge_chair_mesh[0].clone();
+  collider_lounge_sofa_2.speed = 0.2;
+  collider_lounge_sofa_2.frontVector = new BABYLON.Vector3(Math.sin(collider_lounge_sofa_2.rotation.y), 0, Math.cos(collider_lounge_sofa_2.rotation.y));
+  collider_lounge_sofa_2.checkCollisions = true;
+  collider_lounge_sofa_2.isVisible = false;
 
-  lounge_chair_mesh[0].position = new BABYLON.Vector3(12.6,0,-42);
-  lounge_chair_mesh[0].scaling = new BABYLON.Vector3(7,7,7);
-  lounge_chair_mesh[0].frontVector = new BABYLON.Vector3(0,0,0);
-  lounge_chair_mesh[0].checkCollisions = true;
-  lounge_chair_mesh[0].rotationQuaternion = undefined;
-  lounge_chair_mesh[0].rotation.y = Math.PI / 2;
+  let body_lounge_sofa_2 = body_lounge_sofa_1.clone();
+  body_lounge_sofa_2.position.z = 5;
+  body_lounge_sofa_2.setParent(collider_lounge_sofa_2);
+  body_lounge_sofa_2.scaling = new BABYLON.Vector3(6,6,6);
+  body_lounge_sofa_2.position = new BABYLON.Vector3(2.8, 0, -1.25);
+  body_lounge_sofa_2.rotation = new BABYLON.Vector3(0, Math.PI, 0);
 
-  clone_lounge_chair.position = new BABYLON.Vector3(21, 0, -45);
-  clone_lounge_chair.scaling = new BABYLON.Vector3(7,7,7);
-  clone_lounge_chair.frontVector = new BABYLON.Vector3(0,0,0);
-  clone_lounge_chair.checkCollisions = true;
-  clone_lounge_chair.rotationQuaternion = undefined;
-  clone_lounge_chair.rotation.y = -Math.PI / 2;
+  // lounge chair 1
+  let { meshes: lounge_chair_mesh1 } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "lounge_chair.glb", scene);
+
+  let collider_lounge_chair_1 = BABYLON.MeshBuilder.CreateBox("collider_lounge_chair_1", { height: 3, width: 2.5, depth: 3 }, scene);
+  collider_lounge_chair_1.position.y = 0.75;
+  collider_lounge_chair_1.position.x = 7;
+  collider_lounge_chair_1.position.z = -36;
+
+  collider_lounge_chair_1.speed = 0.2;
+  collider_lounge_chair_1.frontVector = new BABYLON.Vector3(Math.sin(collider_lounge_chair_1.rotation.y), 0, Math.cos(collider_lounge_chair_1.rotation.y));
+  collider_lounge_chair_1.checkCollisions = true;
+  collider_lounge_chair_1.isVisible = false;
+
+  var body_lounge_chair_1 = lounge_chair_mesh1[1];
+  body_lounge_chair_1.setParent(collider_lounge_chair_1);
+  body_lounge_chair_1.scaling = new BABYLON.Vector3(6,6,6);
+  body_lounge_chair_1.position = new BABYLON.Vector3(1.35, 0, 1.5);
+  body_lounge_chair_1.rotation = new BABYLON.Vector3(0, Math.PI/2, 0);
+
+  // lounge chair 2
+  let collider_lounge_chair_2 = BABYLON.MeshBuilder.CreateBox("collider_lounge_chair_2", { height: 3, width: 2.5, depth: 3 }, scene);
+  collider_lounge_chair_2.position.y = 0.75;
+  collider_lounge_chair_2.position.x = 17;
+  collider_lounge_chair_2.position.z = -36;
+
+  collider_lounge_chair_2.speed = 0.2;
+  collider_lounge_chair_2.frontVector = new BABYLON.Vector3(Math.sin(collider_lounge_chair_2.rotation.y), 0, Math.cos(collider_lounge_chair_2.rotation.y));
+  collider_lounge_chair_2.checkCollisions = true;
+  collider_lounge_chair_2.isVisible = false;
+
+  let body_lounge_chair_2 = body_lounge_chair_1.clone();
+  body_lounge_chair_2.position.z = 5;
+  body_lounge_chair_2.setParent(collider_lounge_chair_2);
+  body_lounge_chair_2.scaling = new BABYLON.Vector3(6,6,6);
+  body_lounge_chair_2.position = new BABYLON.Vector3(-1.4, 0, -1.5);
+  body_lounge_chair_2.rotation = new BABYLON.Vector3(0, -Math.PI/2, 0);
 
   return;
 }
