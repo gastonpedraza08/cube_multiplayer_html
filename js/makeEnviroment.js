@@ -1,6 +1,6 @@
  const makeEnviroment = () => {
 
-    // Ground
+  // Ground
   const ground = BABYLON.Mesh.CreateGround("ground", 100, 50, 1, scene, false);
   var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
   groundMaterial.diffuseTexture = new BABYLON.Texture("./imgs/grass.png", scene);
@@ -11,17 +11,7 @@
   ground.material = groundMaterial;
   ground.checkCollisions = true;
 
-  // Skybox
-  var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
-  var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
-  skyboxMaterial.backFaceCulling = false;
-  skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("https://www.babylonjs-playground.com/textures/TropicalSunnyDay", scene);
-  skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-  skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-  skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-  skyboxMaterial.disableLighting = true;
-  skybox.material = skyboxMaterial;
-    //create walls
+  //create walls
   var wall = [];
   let GreenColor = new BABYLON.Color4(0, 255, 0, 0.5);
   let RedColor = new BABYLON.Color4(255, 0, 0, 0.5);
