@@ -50,7 +50,7 @@ function loadCubes(cubes) {
     cubes.forEach(async c => {
     if (c.id !== id ) {
       let personaje;
-      let { meshes: newMeshes, animationGroups } = await BABYLON.SceneLoader.ImportMeshAsync(null, "./glb files/", "1.glb", scene);
+      let { meshes: newMeshes, animationGroups } = await BABYLON.SceneLoader.ImportMeshAsync(null, "./glb files/characters/", "1.glb", scene);
       
       personaje = BABYLON.MeshBuilder.CreateCapsule("collider", { height: 4, radius: 1.5}, scene);
       personaje.name = c.id;

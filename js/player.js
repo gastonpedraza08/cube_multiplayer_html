@@ -1,5 +1,5 @@
 async function loadPlayer() {
-    let { meshes: newMeshes, animationGroups } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/", "1.glb", scene);
+    let { meshes: newMeshes, animationGroups } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/characters/", "1.glb", scene);
 
     collider = BABYLON.MeshBuilder.CreateCapsule("collider", { height: 4, radius: 1.5}, scene);
     collider.name = id;
