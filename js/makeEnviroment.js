@@ -147,5 +147,17 @@
   body_lounge_chair_2.position = new BABYLON.Vector3(-1.4, 0, -1.5);
   body_lounge_chair_2.rotation = new BABYLON.Vector3(0, -Math.PI/2, 0);
 
+  let { meshes: rug_square } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "rugSquare.glb", scene);
+  rug_square[0].position.y = 0.75;
+  rug_square[0].position.x = 14.25;
+  rug_square[0].position.z = -38;
+  rug_square[0].scaling = new BABYLON.Vector3(5,5,5);
+
+  let { meshes: potted_plant } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "pottedPlant.glb", scene);
+  potted_plant[0].position.y = 0.75;
+  potted_plant[0].position.x = 21;
+  potted_plant[0].position.z = -45;
+  potted_plant[0].scaling = new BABYLON.Vector3(8,8,8);
+
   return;
 }

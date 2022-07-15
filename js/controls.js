@@ -14,7 +14,7 @@ function createControls(scene) {
       if (e.key === 'w' || e.key === 'ArrowUp') {
         collider.animationGroups[2].stop()
       } else if (e.key === 's' || e.key === 'ArrowDown') {
-        //collider.animationGroups[0].stop()
+        collider.animationGroups[0].stop()
       }
     })
 
@@ -36,9 +36,9 @@ function createControls(scene) {
         }
 
         if (inputMap["s"] || inputMap["ArrowDown"]) {
-          //collider.animationGroups[0].start()
-          //collider.moveWithCollisions(collider.frontVector.multiplyByFloats(-collider.speed / 2, -collider.speed / 2, -collider.speed / 2));
-          //socket.emit('move', { key: "s", id: id, position: collider.position, rotation: collider.rotation})
+          collider.animationGroups[0].start()
+          collider.moveWithCollisions(collider.frontVector.multiplyByFloats(-collider.speed / 2, -collider.speed / 2, -collider.speed / 2));
+          socket.emit('move', { key: "s", id: id, position: collider.position, rotation: collider.rotation})
         }
         if (inputMap["a"] || inputMap["ArrowLeft"]) {
           collider.rotation.y -= .035;

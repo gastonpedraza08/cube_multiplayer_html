@@ -39,7 +39,7 @@ function loadCube(scene, cube) {
         mesh.animationGroups[2].start();
       }
       if (cube.key === "s") {
-        //mesh.animationGroups[0].start();
+        mesh.animationGroups[0].start();
       }
       return;
     }
