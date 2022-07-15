@@ -41,12 +41,12 @@ function createControls(scene) {
           //socket.emit('move', { key: "s", id: id, position: collider.position, rotation: collider.rotation})
         }
         if (inputMap["a"] || inputMap["ArrowLeft"]) {
-          collider.rotation.y -= .05;
+          collider.rotation.y -= .035;
           collider.frontVector = new BABYLON.Vector3(Math.sin(collider.rotation.y), 0, Math.cos(collider.rotation.y));
           socket.emit('move', { id: id, position: collider.position, rotation: collider.rotation})
         }
         if (inputMap["d"] || inputMap["ArrowRight"]) {
-          collider.rotation.y += .05;
+          collider.rotation.y += .035;
           
           collider.frontVector = new BABYLON.Vector3(Math.sin(collider.rotation.y), 0, Math.cos(collider.rotation.y));
           socket.emit('move', { id: id, position: collider.position, rotation: collider.rotation})
