@@ -8,6 +8,7 @@ var createFollowCamera = function(scene, canvas, target) {
     camera.lockedTarget = target;
     camera.attachControl(canvas, true);
     camera.inputs.removeByType('FollowCameraPointersInput');
+    camera.inputs.clear()
     return camera;
 }
 

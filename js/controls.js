@@ -8,7 +8,6 @@ function createControls(scene) {
     }));
     scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function(evt) {
       inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
-
     }));
 
     window.addEventListener('keyup', function (e) {
@@ -21,12 +20,12 @@ function createControls(scene) {
 
     scene.onBeforeRenderObservable.add(() => {
       if (collider) {
-        if (inputMap["w"] || inputMap["ArrowDown"]) {
+        if (inputMap["w"] || inputMap["ArrowUp"]) {
           collider.animationGroups[2].start()
           collider.moveWithCollisions(collider.frontVector.multiplyByFloats(collider.speed, collider.speed, collider.speed));
           socket.emit('move', { key: "w", id: id, position: collider.position, rotation: collider.rotation})
         }
-        if (inputMap["s"] || inputMap["ArrowUp"]) {
+        if (inputMap["s"] || inputMap["ArrowDown"]) {
           //collider.animationGroups[0].start()
           //collider.moveWithCollisions(collider.frontVector.multiplyByFloats(-collider.speed / 2, -collider.speed / 2, -collider.speed / 2));
           //socket.emit('move', { key: "s", id: id, position: collider.position, rotation: collider.rotation})
