@@ -8,6 +8,9 @@ async function loadPlayer() {
     collider.animationGroups[0].stop();
     collider.animationGroups[1].play(true);
     collider.position.y = 0.75;
+    collider.position.x = 13;//eliminar
+    collider.position.z = -35;//eliminar
+
     collider.speed = 0.2;
     collider.frontVector = new BABYLON.Vector3(Math.sin(collider.rotation.y), 0, Math.cos(collider.rotation.y));
     collider.checkCollisions = true;
