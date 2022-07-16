@@ -1,6 +1,29 @@
  const makeEnviroment = async () => {
 
   // Ground
+  makeGround();
+
+  // walls
+  makeWalls();
+
+  /* Decoration */
+
+  // lounge sofas
+  await makeLoungeSofas();
+
+  // lounge chairs
+  await makeLoungeChairs();
+
+  // table coffee square
+  await makeTableCoffeeSquares();
+
+  // potted plant
+  await makePottedPlants();
+
+  return;
+}
+
+function makeGround() {
   const ground = BABYLON.Mesh.CreateGround("ground", 50, 100, 1, scene, false);
   var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
   groundMaterial.diffuseTexture = new BABYLON.Texture("./imgs/floor1.jpg", scene);
@@ -10,8 +33,9 @@
   ground.position.y = 0;
   ground.material = groundMaterial;
   ground.checkCollisions = true;
+}
 
-  // walls
+function makeWalls() {
   var wall = [];
   let WhiteColor = new BABYLON.Color4(255, 255, 255, 1);
   let arrWhiteColor = [];
@@ -71,8 +95,9 @@
   wall[3].position.z = -50;
   wall[3].position.y = 3;
   wall[3].checkCollisions = true;
+}
 
-  /* Decoration */
+async function makeLoungeSofas() {
   // lounge sofa 1
   let { meshes: lounge_sofa_mesh1 } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "lounge_sofa.glb", scene);
 
@@ -127,7 +152,9 @@
   body_lounge_sofa_3.scaling = new BABYLON.Vector3(6,6,6);
   body_lounge_sofa_3.position = new BABYLON.Vector3(2.8, 0, -1.25);
   body_lounge_sofa_3.rotation = new BABYLON.Vector3(0, Math.PI, 0);
+}
 
+async function makeLoungeChairs() {
   // lounge chair 1
   let { meshes: lounge_chair_mesh1 } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "lounge_chair.glb", scene);
 
@@ -200,7 +227,9 @@
   body_lounge_chair_4.scaling = new BABYLON.Vector3(6,6,6);
   body_lounge_chair_4.position = new BABYLON.Vector3(-1.4, 0, -1.5);
   body_lounge_chair_4.rotation = new BABYLON.Vector3(0, -Math.PI/2, 0);
+}
 
+async function makeTableCoffeeSquares() {
   // table coffee square
   let { meshes: table_coffe_square_mesh } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "tableCoffeeSquare.glb", scene);
 
@@ -219,7 +248,9 @@
   body_table_coffee_square.scaling = new BABYLON.Vector3(6,6,6);
   body_table_coffee_square.position = new BABYLON.Vector3(1.5, 0, 0.5);
   body_table_coffee_square.rotation = new BABYLON.Vector3(0, 0, 0);
+}
 
+async function makePottedPlants() {
   // potted plant
   let { meshes: table_potted_plant_mesh } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "pottedPlant.glb", scene);
 
@@ -238,26 +269,4 @@
   body_potted_plant.scaling = new BABYLON.Vector3(10,10,10);
   body_potted_plant.position = new BABYLON.Vector3(0, 0, 0);
   body_potted_plant.rotation = new BABYLON.Vector3(0, 0, 0);
-
-  /* TEXTS */
-  //data reporter
-	text = BABYLON.Mesh.CreatePlane("outputplane", 5, scene, false);
-	text.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
-	text.material = new BABYLON.StandardMaterial("outputplane", scene);
-	text.position = new BABYLON.Vector3(collider.position.x, 5, collider.position.z);
-	text.scaling.y = 0.5;
-  text.scaling.x = 0.5;
-  text.scaling.z = 0.5;
-
-	var outputplaneTexture = new BABYLON.DynamicTexture("dynamic texture", 512, scene, true);
-	text.material.diffuseTexture = outputplaneTexture;
-  text.material.diffuseTexture.hasAlpha = true;
-  text.useAlphaFromDiffuseTexture = true;
-	text.material.specularColor = new BABYLON.Color3(0, 0, 0);
-	text.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
-	text.material.backFaceCulling = false;
-
-	outputplaneTexture.drawText("gaston", null, 140, "bold 120px verdana", "white", "transparent");
-
-  return;
 }
