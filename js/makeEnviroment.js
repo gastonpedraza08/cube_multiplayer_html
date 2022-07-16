@@ -110,6 +110,24 @@
   body_lounge_sofa_2.position = new BABYLON.Vector3(2.8, 0, -1.25);
   body_lounge_sofa_2.rotation = new BABYLON.Vector3(0, Math.PI, 0);
 
+  // lounge sofa 3
+  let collider_lounge_sofa_3 = BABYLON.MeshBuilder.CreateBox("collider_lounge_sofa_3", { height: 3, width: 6, depth: 2.5 }, scene);
+  collider_lounge_sofa_3.position.y = 0.75;
+  collider_lounge_sofa_3.position.x = 12;
+  collider_lounge_sofa_3.position.z = -11;
+
+  collider_lounge_sofa_3.speed = 0.2;
+  collider_lounge_sofa_3.frontVector = new BABYLON.Vector3(Math.sin(collider_lounge_sofa_3.rotation.y), 0, Math.cos(collider_lounge_sofa_3.rotation.y));
+  collider_lounge_sofa_3.checkCollisions = true;
+  collider_lounge_sofa_3.isVisible = false;
+
+  let body_lounge_sofa_3 = body_lounge_sofa_1.clone();
+  body_lounge_sofa_3.position.z = 5;
+  body_lounge_sofa_3.setParent(collider_lounge_sofa_3);
+  body_lounge_sofa_3.scaling = new BABYLON.Vector3(6,6,6);
+  body_lounge_sofa_3.position = new BABYLON.Vector3(2.8, 0, -1.25);
+  body_lounge_sofa_3.rotation = new BABYLON.Vector3(0, Math.PI, 0);
+
   // lounge chair 1
   let { meshes: lounge_chair_mesh1 } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "lounge_chair.glb", scene);
 
@@ -147,12 +165,50 @@
   body_lounge_chair_2.position = new BABYLON.Vector3(-1.4, 0, -1.5);
   body_lounge_chair_2.rotation = new BABYLON.Vector3(0, -Math.PI/2, 0);
 
+  // lounge chair 3
+  let collider_lounge_chair_3 = BABYLON.MeshBuilder.CreateBox("collider_lounge_chair_3", { height: 3, width: 2.5, depth: 3 }, scene);
+  collider_lounge_chair_3.position.y = 0.75;
+  collider_lounge_chair_3.position.x = 17;
+  collider_lounge_chair_3.position.z = -22;
+
+  collider_lounge_chair_3.speed = 0.2;
+  collider_lounge_chair_3.frontVector = new BABYLON.Vector3(Math.sin(collider_lounge_chair_3.rotation.y), 0, Math.cos(collider_lounge_chair_3.rotation.y));
+  collider_lounge_chair_3.checkCollisions = true;
+  collider_lounge_chair_3.isVisible = false;
+
+  let body_lounge_chair_3 = body_lounge_chair_1.clone();
+  body_lounge_chair_3.position.z = 5;
+  body_lounge_chair_3.setParent(collider_lounge_chair_3);
+  body_lounge_chair_3.scaling = new BABYLON.Vector3(6,6,6);
+  body_lounge_chair_3.position = new BABYLON.Vector3(-1.4, 0, -1.5);
+  body_lounge_chair_3.rotation = new BABYLON.Vector3(0, -Math.PI/2, 0);
+
+  // lounge chair 4
+  let collider_lounge_chair_4 = BABYLON.MeshBuilder.CreateBox("collider_lounge_chair_4", { height: 3, width: 2.5, depth: 3 }, scene);
+  collider_lounge_chair_4.position.y = 0.75;
+  collider_lounge_chair_4.position.x = 17;
+  collider_lounge_chair_4.position.z = -17;
+
+  collider_lounge_chair_4.speed = 0.2;
+  collider_lounge_chair_4.frontVector = new BABYLON.Vector3(Math.sin(collider_lounge_chair_4.rotation.y), 0, Math.cos(collider_lounge_chair_4.rotation.y));
+  collider_lounge_chair_4.checkCollisions = true;
+  collider_lounge_chair_4.isVisible = false;
+
+  let body_lounge_chair_4 = body_lounge_chair_1.clone();
+  body_lounge_chair_4.position.z = 5;
+  body_lounge_chair_4.setParent(collider_lounge_chair_4);
+  body_lounge_chair_4.scaling = new BABYLON.Vector3(6,6,6);
+  body_lounge_chair_4.position = new BABYLON.Vector3(-1.4, 0, -1.5);
+  body_lounge_chair_4.rotation = new BABYLON.Vector3(0, -Math.PI/2, 0);
+
+  // rug square
   let { meshes: rug_square } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "rugSquare.glb", scene);
   rug_square[0].position.y = 0.75;
   rug_square[0].position.x = 14.25;
   rug_square[0].position.z = -38;
   rug_square[0].scaling = new BABYLON.Vector3(5,5,5);
 
+  // potted plant
   let { meshes: potted_plant } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "pottedPlant.glb", scene);
   potted_plant[0].position.y = 0.75;
   potted_plant[0].position.x = 21;
