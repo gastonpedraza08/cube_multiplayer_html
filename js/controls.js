@@ -39,6 +39,9 @@ function createControls(scene) {
         }
 
         if (inputMap["s"] || inputMap["ArrowDown"]) {
+          text.position.z = collider.position.z;
+          text.position.x = collider.position.x;
+          
           collider.animationGroups[0].start()
           collider.moveWithCollisions(collider.frontVector.multiplyByFloats(-collider.speed / 2, -collider.speed / 2, -collider.speed / 2));
           socket.emit('move', { key: "s", id: id, position: collider.position, rotation: collider.rotation})
