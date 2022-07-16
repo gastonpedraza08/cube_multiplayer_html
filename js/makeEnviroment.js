@@ -202,11 +202,24 @@
   body_lounge_chair_4.rotation = new BABYLON.Vector3(0, -Math.PI/2, 0);
 
   // rug square
-  let { meshes: rug_square } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "rugSquare.glb", scene);
-  rug_square[0].position.y = 0.75;
-  rug_square[0].position.x = 14.25;
-  rug_square[0].position.z = -38;
-  rug_square[0].scaling = new BABYLON.Vector3(5,5,5);
+  // table coffee square
+  let { meshes: table_coffe_square_mesh } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "tableCoffeeSquare.glb", scene);
+
+  let collider_table_coffee_square_1 = BABYLON.MeshBuilder.CreateBox("collider_table_coffee_square_1", { height: 3, width: 2.5, depth: 2.7 }, scene);
+  collider_table_coffee_square_1.position.y = 0.75;
+  collider_table_coffee_square_1.position.x = 12;
+  collider_table_coffee_square_1.position.z = -36;
+
+  collider_table_coffee_square_1.speed = 0.2;
+  collider_table_coffee_square_1.frontVector = new BABYLON.Vector3(Math.sin(collider_table_coffee_square_1.rotation.y), 0, Math.cos(collider_table_coffee_square_1.rotation.y));
+  collider_table_coffee_square_1.checkCollisions = true;
+  collider_table_coffee_square_1.isVisible = false;
+
+  var body_table_coffee_square = table_coffe_square_mesh[1];
+  body_table_coffee_square.setParent(collider_table_coffee_square_1);
+  body_table_coffee_square.scaling = new BABYLON.Vector3(6,6,6);
+  body_table_coffee_square.position = new BABYLON.Vector3(1.5, 0, 0.5);
+  body_table_coffee_square.rotation = new BABYLON.Vector3(0, 0, 0);
 
   // potted plant
   let { meshes: potted_plant } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "pottedPlant.glb", scene);
