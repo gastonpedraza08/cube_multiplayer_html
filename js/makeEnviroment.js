@@ -26,10 +26,7 @@
 function makeGround() {
   const ground = BABYLON.Mesh.CreateGround("ground", 50, 100, 1, scene, false);
   var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
-  groundMaterial.diffuseTexture = new BABYLON.Texture("./imgs/floor1.jpg", scene);
-  groundMaterial.diffuseTexture.uScale = 6;
-  groundMaterial.diffuseTexture.vScale = 6;
-  groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+  groundMaterial.diffuseColor = new BABYLON.Color3(0, 0, 255);
   ground.position.y = 0;
   ground.material = groundMaterial;
   ground.checkCollisions = true;
@@ -37,16 +34,16 @@ function makeGround() {
 
 function makeWalls() {
   var wall = [];
-  let WhiteColor = new BABYLON.Color4(255, 255, 255, 1);
-  let arrWhiteColor = [];
-  arrWhiteColor.length = 6;
-  arrWhiteColor.fill(WhiteColor);
+  let GrayColor = new BABYLON.Color4(0, 255, 0, 0);
+  let arrGrayColor = [];
+  arrGrayColor.length = 6;
+  arrGrayColor.fill(GrayColor);
 
   //wall 1
   wall[0] = new BABYLON.MeshBuilder.CreateBox("wall 1",
     {
       width: 100, 
-      faceColors: arrWhiteColor, 
+      faceColors: arrGrayColor, 
       height: 15, 
       depth: 0.6,
     },
@@ -60,7 +57,7 @@ function makeWalls() {
   wall[1] = new BABYLON.MeshBuilder.CreateBox("wall 2",
     {
       width: 100, 
-      faceColors: arrWhiteColor, 
+      faceColors: arrGrayColor, 
       height: 15, 
       depth: 0.6,
     },
@@ -74,7 +71,7 @@ function makeWalls() {
   wall[2] = new BABYLON.MeshBuilder.CreateBox("wall 3",
     {
       width: 50, 
-      faceColors: arrWhiteColor, 
+      faceColors: arrGrayColor, 
       height: 15, 
       depth: 0.6,
     },
@@ -87,7 +84,7 @@ function makeWalls() {
   wall[3] = new BABYLON.MeshBuilder.CreateBox("wall 4",
     {
       width: 50, 
-      faceColors: arrWhiteColor, 
+      faceColors: arrGrayColor, 
       height: 15, 
       depth: 0.6,
     },
