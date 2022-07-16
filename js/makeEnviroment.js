@@ -201,7 +201,6 @@
   body_lounge_chair_4.position = new BABYLON.Vector3(-1.4, 0, -1.5);
   body_lounge_chair_4.rotation = new BABYLON.Vector3(0, -Math.PI/2, 0);
 
-  // rug square
   // table coffee square
   let { meshes: table_coffe_square_mesh } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "tableCoffeeSquare.glb", scene);
 
@@ -222,11 +221,23 @@
   body_table_coffee_square.rotation = new BABYLON.Vector3(0, 0, 0);
 
   // potted plant
-  let { meshes: potted_plant } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "pottedPlant.glb", scene);
-  potted_plant[0].position.y = 0.75;
-  potted_plant[0].position.x = 21;
-  potted_plant[0].position.z = -45;
-  potted_plant[0].scaling = new BABYLON.Vector3(8,8,8);
+  let { meshes: table_potted_plant_mesh } = await BABYLON.SceneLoader.ImportMeshAsync("", "./glb files/room1/", "pottedPlant.glb", scene);
+
+  let collider_potted_plant_1 = BABYLON.MeshBuilder.CreateCapsule("collider_potted_plant_1", { height: 7, radius: 1 }, scene);
+  collider_potted_plant_1.position.y = 0.75;
+  collider_potted_plant_1.position.x = 22;
+  collider_potted_plant_1.position.z = -47;
+
+  collider_potted_plant_1.speed = 0.2;
+  collider_potted_plant_1.frontVector = new BABYLON.Vector3(Math.sin(collider_potted_plant_1.rotation.y), 0, Math.cos(collider_potted_plant_1.rotation.y));
+  collider_potted_plant_1.checkCollisions = true;
+  collider_potted_plant_1.isVisible = false;
+
+  var body_potted_plant = table_potted_plant_mesh[0];
+  body_potted_plant.setParent(collider_potted_plant_1);
+  body_potted_plant.scaling = new BABYLON.Vector3(10,10,10);
+  body_potted_plant.position = new BABYLON.Vector3(0, 0, 0);
+  body_potted_plant.rotation = new BABYLON.Vector3(0, 0, 0);
 
   /* TEXTS */
   //data reporter
