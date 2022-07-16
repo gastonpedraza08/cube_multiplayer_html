@@ -21,6 +21,9 @@ function createControls(scene) {
     scene.onBeforeRenderObservable.add(() => {
       if (collider) {
         if (inputMap["w"] || inputMap["ArrowUp"]) {
+          text.position.z = collider.position.z;
+          text.position.x = collider.position.x;
+          
           collider.animationGroups[2].start()
           collider.moveWithCollisions(collider.frontVector.multiplyByFloats(collider.speed, 0.75, collider.speed));
           socket.emit('move', 
